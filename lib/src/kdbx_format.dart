@@ -211,7 +211,7 @@ class HashCredentials implements Credentials {
 }
 
 class KdbxBody extends KdbxNode {
-  KdbxBody.create(this.meta, this.rootGroup) : super.create('KeePassFile') {
+  KdbxBody.create(this.meta, this.rootGroup) : super.create('ProxiPassFile') {
     node.children.add(meta.node);
     final rootNode = xml.XmlElement(xml.XmlName('Root'));
     node.children.add(rootNode);
@@ -380,7 +380,7 @@ class KdbxBody extends KdbxNode {
     builder.processing(
         'xml', 'version="1.0" encoding="utf-8" standalone="yes"');
     builder.element(
-      'KeePassFile',
+      'ProxiPassFile',
       nest: [
         meta.toXml(),
         () => builder.element('Root', nest: [
@@ -780,7 +780,7 @@ class KdbxFormat {
       KdbxFile.protectedValues[el] = ProtectedValue.fromString(pw);
     }
 
-    final keePassFile = document.findElements('KeePassFile').single;
+    final keePassFile = document.findElements('ProxiPassFile').single;
     final meta = keePassFile.findElements('Meta').single;
     final root = keePassFile.findElements('Root').single;
 

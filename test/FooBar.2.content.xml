@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<KeePassFile>
+<ProxiPassFile>
     <Meta>
         <Generator>KdbxWeb</Generator>
         <HeaderHash>r9uD96EiudcSeXq62ma/OqtBBPf+EYX7iMrBaNJBRwo=</HeaderHash>
@@ -119,4 +119,4 @@
         </Group>
         <DeletedObjects />
     </Root>
-</KeePassFile>
+</ProxiPassFile>
