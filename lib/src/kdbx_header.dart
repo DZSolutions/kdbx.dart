@@ -14,9 +14,13 @@ import 'package:quiver/core.dart';
 final _logger = Logger('kdbx.header');
 
 class Consts {
-  static const FileMagic = 0x9AA2D903;
+  // Original
+  // static const FileMagic = 0x9AA2D903;
+  // static const Sig2Kdbx = 0xB54BFB67;
 
-  static const Sig2Kdbx = 0xB54BFB67;
+  //DZ
+  static const FileMagic = 0x99A2D903;
+  static const Sig2Kdbx = 0x994BFB67;
   static const DefaultKdfSaltLength = 32;
   static const DefaultKdfParallelism = 1;
   static const DefaultKdfIterations = 2;
