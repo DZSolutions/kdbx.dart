@@ -25,10 +25,6 @@ class KdbxKeyCommon {
   static const KEY_USER_NAME = 'UserName';
   static const KEY_PASSWORD = 'Password';
   static const KEY_OTP = 'OTPAuth';
-  static const KEY_URL_NFC = 'Url_NFC';
-  static const KEY_NOTES_NFC = 'Notes_NFC';
-  static const KEY_USER_NAME_NFC = 'UserName_NFC';
-  static const KEY_PASSWORD_NFC = 'Password_NFC';
 
   static const KdbxKey TITLE = KdbxKey._(KEY_TITLE, 'title');
   static const KdbxKey URL = KdbxKey._(KEY_URL, 'url');
@@ -36,10 +32,6 @@ class KdbxKeyCommon {
   static const KdbxKey USER_NAME = KdbxKey._(KEY_USER_NAME, 'username');
   static const KdbxKey PASSWORD = KdbxKey._(KEY_PASSWORD, 'password');
   static const KdbxKey OTP = KdbxKey._(KEY_OTP, 'otpauth');
-  static const KdbxKey URL_NFC = KdbxKey._(KEY_URL, 'url_nfc');
-  static const KdbxKey NOTES_NFC = KdbxKey._(KEY_NOTES, 'notes_nfc');
-  static const KdbxKey USER_NAME_NFC = KdbxKey._(KEY_USER_NAME, 'username_nfc');
-  static const KdbxKey PASSWORD_NFC = KdbxKey._(KEY_PASSWORD, 'password_nfc');
 
   static const List<KdbxKey> all = [
     TITLE,
