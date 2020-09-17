@@ -21,12 +21,14 @@ final _logger = Logger('kdbx.kdbx_entry');
 class KdbxKeyCommon {
   static const KEY_TITLE = 'Title';
   static const KEY_URL = 'URL';
+  static const KEY_NOTES = 'Notes';
   static const KEY_USER_NAME = 'UserName';
   static const KEY_PASSWORD = 'Password';
   static const KEY_OTP = 'OTPAuth';
 
   static const KdbxKey TITLE = KdbxKey._(KEY_TITLE, 'title');
   static const KdbxKey URL = KdbxKey._(KEY_URL, 'url');
+  static const KdbxKey NOTES = KdbxKey._(KEY_NOTES, 'notes');
   static const KdbxKey USER_NAME = KdbxKey._(KEY_USER_NAME, 'username');
   static const KdbxKey PASSWORD = KdbxKey._(KEY_PASSWORD, 'password');
   static const KdbxKey OTP = KdbxKey._(KEY_OTP, 'otpauth');
@@ -34,6 +36,7 @@ class KdbxKeyCommon {
   static const List<KdbxKey> all = [
     TITLE,
     URL,
+    NOTES,
     USER_NAME,
     PASSWORD,
     OTP,
