@@ -25,10 +25,12 @@ Future<void> _testAddNewAttachment(String filePath) async {
     expect(entry.binaryEntries, hasLength(0));
     entry.createBinary(
         isProtected: false,
+        isNFC: false,
         name: 'test.txt',
         bytes: utf8.encode('Content1') as Uint8List);
     entry.createBinary(
         isProtected: false,
+        isNFC: false,
         name: 'test.txt',
         bytes: utf8.encode('Content2') as Uint8List);
     return await f.save();

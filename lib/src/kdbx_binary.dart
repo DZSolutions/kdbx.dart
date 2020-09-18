@@ -10,19 +10,22 @@ import 'package:quiver/core.dart';
 import 'package:xml/xml.dart';
 
 class KdbxBinary {
-  KdbxBinary({this.isInline, this.isProtected, this.value});
+  KdbxBinary({this.isInline, this.isProtected, this.isNFC, this.value});
   final bool isInline;
   final bool isProtected;
+  final bool isNFC;
   final Uint8List value;
   int _valueHashCode;
 
   static KdbxBinary readBinaryInnerHeader(InnerHeaderField field) {
     final flags = field.bytes[0];
-    final isProtected = flags & 0x01 == 0x01;
+    final isProtected = flags & (0x01 | 0x11) == (0x01 | 0x11);
+    final isNFC = flags & (0x10 | 0x11) == (0x10 | 0x11);
     final value = Uint8List.sublistView(field.bytes, 1);
     return KdbxBinary(
       isInline: false,
       isProtected: isProtected,
+      isNFC: isNFC,
       value: value,
     );
   }
@@ -34,7 +37,7 @@ class KdbxBinary {
 
   InnerHeaderField writeToInnerHeader() {
     final writer = WriterHelper();
-    final flags = isProtected ? 0x01 : 0x00;
+    final flags = isProtected ? (isNFC ? 0x11 : 0x10) : (isNFC ? 0x01 : 0x00);
     writer.writeUint8(flags);
     writer.writeBytes(value);
     return InnerHeaderField(
@@ -45,6 +48,7 @@ class KdbxBinary {
       {@required bool isInline}) {
     assert(isInline != null);
     final isProtected = valueNode.getAttributeBool(KdbxXml.ATTR_PROTECTED);
+    final isNFC = valueNode.getAttributeBool(KdbxXml.ATTR_NFC);
     final isCompressed = valueNode.getAttributeBool(KdbxXml.ATTR_COMPRESSED);
     var value = base64.decode(valueNode.text.trim());
     if (isCompressed) {
@@ -53,6 +57,7 @@ class KdbxBinary {
     return KdbxBinary(
       isInline: isInline,
       isProtected: isProtected,
+      isNFC: isNFC,
       value: value,
     );
   }
@@ -60,6 +65,7 @@ class KdbxBinary {
   void saveToXml(XmlElement valueNode) {
     final content = base64.encode(gzip.encode(value));
     valueNode.addAttributeBool(KdbxXml.ATTR_PROTECTED, isProtected);
+    valueNode.addAttributeBool(KdbxXml.ATTR_NFC, isNFC);
     valueNode.addAttributeBool(KdbxXml.ATTR_COMPRESSED, true);
     valueNode.children.add(XmlText(content));
   }

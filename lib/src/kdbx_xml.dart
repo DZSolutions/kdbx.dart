@@ -19,6 +19,7 @@ class KdbxXml {
   static const NODE_KEY = 'Key';
   static const NODE_VALUE = 'Value';
   static const ATTR_PROTECTED = 'Protected';
+  static const ATTR_NFC = 'NFCTag';
   static const ATTR_COMPRESSED = 'Compressed';
   static const NODE_GROUP = 'Group';
   static const NODE_DELETED_OBJECT = 'DeletedObject';

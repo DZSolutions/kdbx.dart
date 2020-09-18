@@ -336,10 +336,12 @@ class KdbxEntry extends KdbxObject {
   /// Creates a new binary and adds it to this entry.
   KdbxBinary createBinary({
     @required bool isProtected,
+    @required bool isNFC,
     @required String name,
     @required Uint8List bytes,
   }) {
     assert(isProtected != null);
+    assert(isNFC != null);
     assert(bytes != null);
     assert(name != null);
     // make sure we don't have a path, just the file name.
@@ -347,6 +349,7 @@ class KdbxEntry extends KdbxObject {
     final binary = KdbxBinary(
       isInline: false,
       isProtected: isProtected,
+      isNFC: isNFC,
       value: bytes,
     );
     modify(() {
