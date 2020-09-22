@@ -25,14 +25,23 @@ class KdbxFile {
   }
 
   static final protectedValues = Expando<ProtectedValue>();
+  static final nfcValues = Expando<NFCValue>();
 
   static ProtectedValue protectedValueForNode(xml.XmlElement node) {
     return protectedValues[node];
   }
 
+  static NFCValue nfcValueForNode(xml.XmlElement node) {
+    return nfcValues[node];
+  }
+
   static void setProtectedValueForNode(
       xml.XmlElement node, ProtectedValue value) {
     protectedValues[node] = value;
+  }
+
+  static void setNFCValueForNode(xml.XmlElement node, NFCValue value) {
+    nfcValues[node] = value;
   }
 
   final KdbxFormat kdbxFormat;

@@ -174,6 +174,9 @@ class KdbxEntry extends KdbxObject {
       if (valueNode.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() ==
           'true') {
         return MapEntry(key, KdbxFile.protectedValueForNode(valueNode));
+      } else if (valueNode.getAttribute(KdbxXml.ATTR_NFC)?.toLowerCase() ==
+          'true') {
+        return MapEntry(key, KdbxFile.nfcValueForNode(valueNode));
       } else {
         return MapEntry(key, PlainValue(valueNode.text));
       }
@@ -247,6 +250,10 @@ class KdbxEntry extends KdbxObject {
             XmlAttribute(XmlName(KdbxXml.ATTR_PROTECTED), KdbxXml.VALUE_TRUE));
         KdbxFile.setProtectedValueForNode(
             value, stringEntry.value as ProtectedValue);
+      } else if (stringEntry.value is NFCValue) {
+        value.attributes
+            .add(XmlAttribute(XmlName(KdbxXml.ATTR_NFC), KdbxXml.VALUE_TRUE));
+        KdbxFile.setNFCValueForNode(value, stringEntry.value as NFCValue);
       } else if (stringEntry.value is StringValue) {
         value.children.add(XmlText(stringEntry.value.getText()));
       }

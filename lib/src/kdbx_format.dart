@@ -376,6 +376,23 @@ class KdbxBody extends KdbxNode {
       }
     }
 
+    for (final el in rootGroupNode.findAllElements(KdbxXml.NODE_VALUE).where(
+        (el) => el.getAttribute(KdbxXml.ATTR_NFC)?.toLowerCase() == 'true')) {
+      final pv = KdbxFile.nfcValues[el];
+      if (pv != null) {
+        final newValue = saltGenerator.encryptToBase64(pv.getText());
+        el.children.clear();
+        el.children.add(xml.XmlText(newValue));
+      } else {
+//        assert((() {
+//          _logger.severe('Unable to find protected value for $el ${el.parent.parent} (children: ${el.children})');
+//          return false;
+//        })());
+        // this is always an error, not just during debug.
+        throw StateError('Unable to find protected value for $el ${el.parent}');
+      }
+    }
+
     final builder = xml.XmlBuilder();
     builder.processing(
         'xml', 'version="1.0" encoding="utf-8" standalone="yes"');
@@ -779,6 +796,32 @@ class KdbxFormat {
           continue;
         }
         KdbxFile.protectedValues[el] = ProtectedValue.fromString(pw);
+      } catch (e, stackTrace) {
+        final stringKey =
+            el.parentElement.singleElement(KdbxXml.NODE_KEY)?.text;
+        final uuid = el.parentElement?.parentElement
+            ?.singleElement(KdbxXml.NODE_UUID)
+            ?.text;
+        _logger.severe(
+            'Error while decoding protected value in '
+            '{${el.breadcrumbsNames()}} of key'
+            ' {$stringKey} of entry {$uuid}.',
+            e,
+            stackTrace);
+
+        rethrow;
+      }
+    }
+
+    for (final el in document
+        .findAllElements(KdbxXml.NODE_VALUE)
+        .where((el) => el.getAttributeBool(KdbxXml.ATTR_NFC))) {
+      try {
+        final pw = gen.decryptBase64(el.text.trim());
+        if (pw == null) {
+          continue;
+        }
+        KdbxFile.nfcValues[el] = NFCValue.fromString(pw);
       } catch (e, stackTrace) {
         final stringKey =
             el.parentElement.singleElement(KdbxXml.NODE_KEY)?.text;
