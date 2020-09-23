@@ -172,7 +172,9 @@ class KdbxEntry extends KdbxObject {
       final key = KdbxKey(el.findElements(KdbxXml.NODE_KEY).single.text);
       final valueNode = el.findElements(KdbxXml.NODE_VALUE).single;
       if (valueNode.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() ==
-          'true') {
+              'true' &&
+          valueNode.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() ==
+              null) {
         return MapEntry(key, KdbxFile.protectedValueForNode(valueNode));
       } else if (valueNode.getAttribute(KdbxXml.ATTR_NFC)?.toLowerCase() ==
           'true') {
