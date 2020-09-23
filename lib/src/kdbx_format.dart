@@ -358,9 +358,12 @@ class KdbxBody extends KdbxNode {
   xml.XmlDocument generateXml(ProtectedSaltGenerator saltGenerator) {
     final rootGroupNode = rootGroup.toXml();
     // update protected values...
-    for (final el in rootGroupNode.findAllElements(KdbxXml.NODE_VALUE).where(
-        (el) =>
-            el.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() == 'true')) {
+    for (final el
+        in rootGroupNode.findAllElements(KdbxXml.NODE_VALUE).where((el) {
+      return (el.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() ==
+              'true') &&
+          (el.getAttribute(KdbxXml.ATTR_NFC) == null);
+    })) {
       final pv = KdbxFile.protectedValues[el];
       if (pv != null) {
         final newValue = saltGenerator.encryptToBase64(pv.getText());
@@ -787,9 +790,11 @@ class KdbxFormat {
     final document = xml.XmlDocument.parse(xmlString);
     KdbxReadWriteContext.setKdbxContextForNode(document, ctx);
 
-    for (final el in document
-        .findAllElements(KdbxXml.NODE_VALUE)
-        .where((el) => el.getAttributeBool(KdbxXml.ATTR_PROTECTED))) {
+    for (final el in document.findAllElements(KdbxXml.NODE_VALUE).where((el) {
+      return (el.getAttribute(KdbxXml.ATTR_PROTECTED)?.toLowerCase() ==
+              'true') &&
+          (el.getAttribute(KdbxXml.ATTR_NFC) == null);
+    })) {
       try {
         final pw = gen.decryptBase64(el.text.trim());
         if (pw == null) {

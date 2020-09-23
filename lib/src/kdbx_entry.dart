@@ -251,6 +251,8 @@ class KdbxEntry extends KdbxObject {
         KdbxFile.setProtectedValueForNode(
             value, stringEntry.value as ProtectedValue);
       } else if (stringEntry.value is NFCValue) {
+        value.attributes.add(
+            XmlAttribute(XmlName(KdbxXml.ATTR_PROTECTED), KdbxXml.VALUE_TRUE));
         value.attributes
             .add(XmlAttribute(XmlName(KdbxXml.ATTR_NFC), KdbxXml.VALUE_TRUE));
         KdbxFile.setNFCValueForNode(value, stringEntry.value as NFCValue);
