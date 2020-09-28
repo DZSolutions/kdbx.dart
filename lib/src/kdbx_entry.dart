@@ -210,6 +210,7 @@ class KdbxEntry extends KdbxObject {
   }
 
   final bool isHistoryEntry;
+  bool isNewOnCreated = false;
 
   final List<KdbxEntry> history;
 

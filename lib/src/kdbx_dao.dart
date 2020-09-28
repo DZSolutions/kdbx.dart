@@ -23,11 +23,19 @@ extension KdbxDao on KdbxFile {
               throw StateError('Unable to find group with uuid $uuid'));
 
   void deleteGroup(KdbxGroup group) {
-    move(group, getRecycleBinOrCreate());
+    if (group.parent.name.get() == 'Trash') {
+      group.parent.internalRemoveGroup(group);
+    } else {
+      move(group, getRecycleBinOrCreate());
+    }
   }
 
-  void deleteEntry(KdbxEntry entry) {
-    move(entry, getRecycleBinOrCreate());
+  void deleteEntry(KdbxEntry entry, {bool forceDelete = false}) {
+    if (entry.parent.name.get() == 'Trash' || forceDelete) {
+      entry.parent.internalRemoveEntry(entry);
+    } else {
+      move(entry, getRecycleBinOrCreate());
+    }
   }
 
   void move(KdbxObject kdbxObject, KdbxGroup toGroup) {
