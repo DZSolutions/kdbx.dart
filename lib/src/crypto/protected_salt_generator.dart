@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
 import 'package:crypto/crypto.dart';
-import 'package:cryptography/cryptography.dart' as cryptography;
+import 'package:cryptography012/cryptography.dart' as cryptography;
 import 'package:pointycastle/export.dart';
 
 final _logger = Logger('protected_salt_generator');

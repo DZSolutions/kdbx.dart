@@ -57,12 +57,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
-  cryptography:
+  cryptography012:
     dependency: transitive
     description:
-      name: cryptography
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../cryptography-0.1.2"
+      relative: true
+    source: path
     version: "0.1.2"
   dio:
     dependency: transitive
@@ -112,7 +112,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.4.1"
+    version: "0.4.2"
   logging:
     dependency: transitive
     description:
@@ -211,6 +211,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  supercharged_dart:
+    dependency: transitive
+    description:
+      name: supercharged_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0+2"
   term_glyph:
     dependency: transitive
     description:

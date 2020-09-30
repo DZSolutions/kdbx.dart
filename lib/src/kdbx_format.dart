@@ -9,7 +9,7 @@ import 'package:supercharged_dart/supercharged_dart.dart';
 import 'package:argon2_ffi_base/argon2_ffi_base.dart';
 import 'package:convert/convert.dart' as convert;
 import 'package:crypto/crypto.dart' as crypto;
-import 'package:cryptography/cryptography.dart' as cryptography;
+import 'package:cryptography012/cryptography.dart' as cryptography;
 import 'package:kdbx/kdbx.dart';
 import 'package:kdbx/src/crypto/key_encrypter_kdf.dart';
 import 'package:kdbx/src/crypto/protected_salt_generator.dart';
